@@ -1,0 +1,214 @@
+/**
+ * Kashiwazaki SEO Headline Generator - Table of Contents Styles
+ */
+
+/* 目次コンテナ */
+.kashiwazaki-toc {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin: 1.5em 0;
+    padding: 0;
+    max-width: 100%;
+    font-size: 0.95em;
+}
+
+/* ヘッダー */
+.kashiwazaki-toc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #e9ecef;
+    border-radius: 7px 7px 0 0;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.kashiwazaki-toc.is-open .kashiwazaki-toc-header {
+    border-radius: 7px 7px 0 0;
+}
+
+.kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-header {
+    border-radius: 7px;
+    border-bottom: none;
+}
+
+/* タイトル */
+.kashiwazaki-toc-title {
+    font-weight: 600;
+    color: #333;
+    font-size: 1em;
+}
+
+/* トグルボタン */
+.kashiwazaki-toc-toggle {
+    background: none;
+    border: 1px solid #adb5bd;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 0.85em;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.kashiwazaki-toc-toggle:hover {
+    background: #fff;
+    border-color: #6c757d;
+    color: #333;
+}
+
+.kashiwazaki-toc-toggle:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* コンテンツ */
+.kashiwazaki-toc-content {
+    padding: 16px;
+}
+
+/* リスト（ol/ul両対応） */
+.kashiwazaki-toc-list,
+ol.kashiwazaki-toc-list,
+ul.kashiwazaki-toc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none !important;
+    counter-reset: toc-counter;
+}
+
+.kashiwazaki-toc-sublist,
+ol.kashiwazaki-toc-sublist,
+ul.kashiwazaki-toc-sublist {
+    margin: 0;
+    padding: 0 0 0 1.5em;
+    list-style: none !important;
+    counter-reset: toc-counter;
+}
+
+/* 番号なしモード */
+.kashiwazaki-toc-list.no-numbering,
+.kashiwazaki-toc-sublist.no-numbering {
+    list-style-type: none !important;
+}
+
+/* アイテム */
+.kashiwazaki-toc-item {
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.kashiwazaki-toc-item + .kashiwazaki-toc-item {
+    margin-top: 6px;
+}
+
+/* リンク */
+.kashiwazaki-toc-item a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.kashiwazaki-toc-item a:hover {
+    background: #e9ecef;
+    color: #007bff;
+}
+
+.kashiwazaki-toc-item a:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 1px;
+}
+
+/* 番号 */
+.toc-number {
+    color: #6c757d;
+    font-weight: 500;
+    margin-right: 0.3em;
+}
+
+/* レベル別スタイル */
+.kashiwazaki-toc-item.level-2 a {
+    font-weight: 500;
+}
+
+.kashiwazaki-toc-item.level-3 a {
+    font-size: 0.95em;
+}
+
+.kashiwazaki-toc-item.level-4 a,
+.kashiwazaki-toc-item.level-5 a,
+.kashiwazaki-toc-item.level-6 a {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 600px) {
+    .kashiwazaki-toc {
+        font-size: 0.9em;
+    }
+
+    .kashiwazaki-toc-header {
+        padding: 10px 12px;
+    }
+
+    .kashiwazaki-toc-content {
+        padding: 12px;
+    }
+
+    .kashiwazaki-toc-sublist {
+        padding-left: 1em;
+    }
+}
+
+/* ダークモード対応（prefers-color-scheme） */
+@media (prefers-color-scheme: dark) {
+    .kashiwazaki-toc {
+        background: #2d2d2d;
+        border-color: #444;
+    }
+
+    .kashiwazaki-toc-header {
+        background: #3d3d3d;
+        border-color: #444;
+    }
+
+    .kashiwazaki-toc-title {
+        color: #e0e0e0;
+    }
+
+    .kashiwazaki-toc-toggle {
+        border-color: #666;
+        color: #ccc;
+    }
+
+    .kashiwazaki-toc-toggle:hover {
+        background: #444;
+        border-color: #888;
+        color: #fff;
+    }
+
+    .kashiwazaki-toc-item a {
+        color: #e0e0e0;
+    }
+
+    .kashiwazaki-toc-item a:hover {
+        background: #3d3d3d;
+        color: #66b3ff;
+    }
+
+    .toc-number {
+        color: #999;
+    }
+
+    .kashiwazaki-toc-item.level-4 a,
+    .kashiwazaki-toc-item.level-5 a,
+    .kashiwazaki-toc-item.level-6 a {
+        color: #bbb;
+    }
+}

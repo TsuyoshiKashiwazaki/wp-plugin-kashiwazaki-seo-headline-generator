@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+package.json
+package-lock.json
+vendor/
+composer.lock
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test files
+test-*.js
+test-*.php
+tests/
+
+# Build
+*.map
+*.log
+
+# Local development
+.claude/
+.playwright-mcp/
+CLAUDE.md
+
+# Backup files
+*.bak
+*.swp
+*~

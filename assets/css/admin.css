@@ -1,0 +1,423 @@
+/**
+ * Kashiwazaki SEO Headline Generator - Admin Styles
+ */
+
+/* メタボックス全体 */
+.kashiwazaki-seo-headline-metabox {
+    padding: 10px 0;
+}
+
+/* 操作ボタンエリア */
+.kashiwazaki-seo-headline-actions {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.kashiwazaki-seo-headline-actions .spinner {
+    visibility: hidden;
+}
+
+.kashiwazaki-seo-headline-actions .spinner.is-active {
+    visibility: visible;
+}
+
+.kashiwazaki-seo-headline-export-buttons {
+    display: inline-flex;
+    gap: 8px;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid #ddd;
+}
+
+/* 統計情報 */
+.kashiwazaki-seo-headline-stats {
+    background: #f0f0f1;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    display: flex;
+    gap: 20px;
+}
+
+.kashiwazaki-seo-headline-stats .stat-item {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+}
+
+/* 結果セクション */
+.kashiwazaki-seo-headline-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.kashiwazaki-seo-headline-section h4 {
+    margin: 0 0 10px 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.kashiwazaki-seo-headline-section h4 .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+/* 見出し構造リスト */
+.kashiwazaki-seo-headline-structure-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.kashiwazaki-seo-headline-structure-list li {
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    background: #f9f9f9;
+    border-radius: 3px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-left: 3px solid #0073aa;
+}
+
+.kashiwazaki-seo-headline-structure-list li.level-1 {
+    margin-left: 0;
+    border-left-color: #0073aa;
+}
+
+.kashiwazaki-seo-headline-structure-list li.level-2 {
+    margin-left: 20px;
+    border-left-color: #00a0d2;
+}
+
+.kashiwazaki-seo-headline-structure-list li.level-3 {
+    margin-left: 40px;
+    border-left-color: #00b9eb;
+}
+
+.kashiwazaki-seo-headline-structure-list li.level-4 {
+    margin-left: 60px;
+    border-left-color: #72aee6;
+}
+
+.kashiwazaki-seo-headline-structure-list li.level-5 {
+    margin-left: 80px;
+    border-left-color: #9ec2e6;
+}
+
+.kashiwazaki-seo-headline-structure-list li.level-6 {
+    margin-left: 100px;
+    border-left-color: #c5d9ed;
+}
+
+.kashiwazaki-seo-headline-structure-list li.has-warning {
+    background: #fcf9e8;
+}
+
+.kashiwazaki-seo-headline-structure-list li.has-error {
+    background: #fbeaea;
+    border-left-color: #dc3232;
+}
+
+.headline-tag {
+    font-family: monospace;
+    font-size: 11px;
+    background: #0073aa;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.headline-text {
+    flex: 1;
+    word-break: break-word;
+}
+
+.headline-char-count {
+    font-size: 11px;
+    color: #666;
+    flex-shrink: 0;
+}
+
+.headline-char-count.warning {
+    color: #dba617;
+}
+
+.headline-char-count.error {
+    color: #dc3232;
+}
+
+/* 警告リスト */
+.kashiwazaki-seo-headline-warning-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.kashiwazaki-seo-headline-warning-list li {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: #fcf9e8;
+    border-left: 3px solid #dba617;
+    border-radius: 0 3px 3px 0;
+}
+
+.kashiwazaki-seo-headline-warning-list li.error {
+    background: #fbeaea;
+    border-left-color: #dc3232;
+}
+
+.kashiwazaki-seo-headline-warning-list li.info {
+    background: #e7f3ff;
+    border-left-color: #0073aa;
+}
+
+.warning-message {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.warning-detail {
+    display: block;
+    font-size: 12px;
+    color: #666;
+}
+
+.warning-items {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed #ddd;
+}
+
+.warning-items .item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 5px;
+    font-size: 13px;
+}
+
+.warning-items .item:last-child {
+    margin-bottom: 0;
+}
+
+.warning-items .headline-tag {
+    font-size: 10px;
+}
+
+/* カニバリゼーション警告 */
+.cannibalization-item {
+    padding: 12px;
+    margin-bottom: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.cannibalization-item:last-child {
+    margin-bottom: 0;
+}
+
+.cannibalization-current {
+    margin-bottom: 8px;
+}
+
+.cannibalization-current .label {
+    font-size: 11px;
+    color: #666;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.cannibalization-current .text {
+    font-weight: 500;
+}
+
+.cannibalization-matched {
+    padding: 10px;
+    background: #fcf9e8;
+    border-radius: 3px;
+}
+
+.cannibalization-matched .label {
+    font-size: 11px;
+    color: #666;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.cannibalization-matched .post-title {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.cannibalization-matched .matched-text {
+    font-size: 13px;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+.cannibalization-matched .similarity {
+    display: inline-block;
+    background: #dba617;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.cannibalization-matched .edit-link {
+    font-size: 12px;
+}
+
+/* 階層警告セクション */
+.kashiwazaki-seo-headline-hierarchy-warnings h4 .dashicons {
+    color: #dba617;
+}
+
+/* 文字数警告セクション */
+.kashiwazaki-seo-headline-length-warnings h4 .dashicons {
+    color: #00a0d2;
+}
+
+/* 重複警告セクション */
+.kashiwazaki-seo-headline-duplicate-warnings h4 .dashicons {
+    color: #826eb4;
+}
+
+/* カニバリゼーション警告セクション */
+.kashiwazaki-seo-headline-cannibalization-warnings h4 .dashicons {
+    color: #dc3232;
+}
+
+/* 初期メッセージ */
+.kashiwazaki-seo-headline-initial-message {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.kashiwazaki-seo-headline-initial-message p {
+    margin: 0;
+}
+
+/* 設定情報 */
+.kashiwazaki-seo-headline-settings-info {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    color: #666;
+}
+
+.kashiwazaki-seo-headline-settings-info a {
+    margin-left: 10px;
+}
+
+/* 空の状態 */
+.kashiwazaki-seo-headline-empty {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+/* 成功メッセージ */
+.kashiwazaki-seo-headline-success {
+    background: #d4edda;
+    border-left: 3px solid #28a745;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    color: #155724;
+}
+
+/* ローディング状態 */
+.kashiwazaki-seo-headline-loading {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+}
+
+.kashiwazaki-seo-headline-loading .spinner {
+    visibility: visible;
+    float: none;
+    margin: 0 auto 10px;
+}
+
+/* 設定ページ */
+.kashiwazaki-seo-headline-settings {
+    max-width: 800px;
+}
+
+.kashiwazaki-seo-headline-settings .form-table th {
+    width: 250px;
+}
+
+.kashiwazaki-seo-headline-info {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.kashiwazaki-seo-headline-info h2 {
+    margin-top: 0;
+}
+
+.kashiwazaki-seo-headline-info h3 {
+    margin-top: 20px;
+}
+
+.kashiwazaki-seo-headline-info ol,
+.kashiwazaki-seo-headline-info ul {
+    margin-left: 20px;
+}
+
+.kashiwazaki-seo-headline-info li {
+    margin-bottom: 8px;
+}
+
+/* レスポンシブ */
+@media screen and (max-width: 782px) {
+    .kashiwazaki-seo-headline-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .kashiwazaki-seo-headline-export-buttons {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+        margin-top: 10px;
+        flex-wrap: wrap;
+    }
+
+    .kashiwazaki-seo-headline-stats {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .kashiwazaki-seo-headline-structure-list li.level-2,
+    .kashiwazaki-seo-headline-structure-list li.level-3,
+    .kashiwazaki-seo-headline-structure-list li.level-4,
+    .kashiwazaki-seo-headline-structure-list li.level-5,
+    .kashiwazaki-seo-headline-structure-list li.level-6 {
+        margin-left: 15px;
+    }
+}

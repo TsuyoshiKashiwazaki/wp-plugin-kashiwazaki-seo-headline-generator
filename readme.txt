@@ -1,0 +1,74 @@
+=== Kashiwazaki SEO Headline Generator ===
+Contributors: kashiwazakitsuyoshi
+Tags: seo, headlines, headings, toc, table of contents
+Requires at least: 5.0
+Tested up to: 6.9
+Stable tag: 1.0.0
+Requires PHP: 7.4
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+投稿の見出し構造を分析し、SEO最適化のための警告と提案を提供するプラグイン。目次自動生成機能も搭載。
+
+== Description ==
+
+Kashiwazaki SEO Headline Generator は、投稿の見出し構造を分析し、SEO最適化のための警告と提案を提供するWordPressプラグインです。
+
+= 見出し分析機能 =
+
+* 見出し構造表示 - 投稿内の見出しを階層構造で視覚的に表示
+* 階層構造バリデーション - H2の次にH4が来るなどの階層飛びを検出
+* 文字数チェック - 長すぎる・短すぎる見出しを検出
+* 重複検出 - 同一記事内で類似した見出しを検出
+* カニバリチェック - 公開済み記事との類似コンテンツを検出
+* エクスポート機能 - 見出し構造をテキストまたはCSVで出力
+
+= 目次生成機能 =
+
+* 自動挿入 - 投稿・固定ページに目次を自動挿入
+* ショートコード対応 - [kashiwazaki_toc] で任意の位置に配置可能
+* カスタマイズ可能 - タイトル、番号表示、開閉ボタンなどを設定可能
+* スムーススクロール - 固定ヘッダー対応のスクロール機能
+
+== Installation ==
+
+1. プラグインファイルを `/wp-content/plugins/wp-plugin-kashiwazaki-seo-headline-generator` ディレクトリにアップロード
+2. WordPress管理画面の「プラグイン」メニューからプラグインを有効化
+3. 管理画面のサイドメニューに「Kashiwazaki SEO Headline Generator」が追加されます
+
+== Frequently Asked Questions ==
+
+= 対応している見出しレベルは？ =
+
+H1からH6まで全ての見出しレベルに対応しています。設定画面で分析対象のレベルを選択できます。
+
+= 目次を特定の位置に表示したい =
+
+ショートコード [kashiwazaki_toc] を使用して、任意の位置に目次を配置できます。
+
+= カニバリチェックとは？ =
+
+サイト内の他の公開済み記事と、見出しやタイトルが類似していないかをチェックする機能です。SEOにおけるコンテンツの重複を防ぐのに役立ちます。
+
+== Screenshots ==
+
+1. 見出し分析メタボックス
+2. 設定画面（見出し分析タブ）
+3. 設定画面（目次タブ）
+4. フロントエンドの目次表示
+
+== Changelog ==
+
+= 1.0.0 =
+* 初回リリース
+* 見出し分析機能（階層バリデーション、文字数チェック、重複検出）
+* サイト内カニバリチェック機能
+* 自動目次生成機能
+* ショートコード対応
+* スムーススクロール機能
+* エクスポート機能（テキスト/CSV）
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+初回リリース
