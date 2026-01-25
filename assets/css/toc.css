@@ -29,8 +29,8 @@
 }
 
 .kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-header {
-    border-radius: 7px;
-    border-bottom: none;
+    border-radius: 7px 7px 0 0;
+    border-bottom: 1px solid #dee2e6;
 }
 
 /* タイトル */
@@ -43,19 +43,20 @@
 /* トグルボタン */
 .kashiwazaki-toc-toggle {
     background: none;
-    border: 1px solid #adb5bd;
-    border-radius: 4px;
-    padding: 4px 12px;
-    font-size: 0.85em;
-    color: #495057;
+    border: none;
+    padding: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
 }
 
 .kashiwazaki-toc-toggle:hover {
-    background: #fff;
-    border-color: #6c757d;
-    color: #333;
+    background: rgba(0, 0, 0, 0.08);
 }
 
 .kashiwazaki-toc-toggle:focus {
@@ -63,9 +64,51 @@
     outline-offset: 2px;
 }
 
+/* トグルアイコン（シェブロン） */
+.toggle-icon {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #495057;
+    border-bottom: 2px solid #495057;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+    margin-top: -3px;
+}
+
+/* 開いている状態でアイコンを上向きに */
+.kashiwazaki-toc.is-open .toggle-icon {
+    transform: rotate(-135deg);
+    margin-top: 3px;
+}
+
 /* コンテンツ */
 .kashiwazaki-toc-content {
     padding: 16px;
+    position: relative;
+}
+
+/* 閉じた状態でのプレビュー表示 */
+.kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-content {
+    max-height: 180px;
+    overflow: hidden;
+}
+
+/* 閉じた状態のフェードアウト効果 */
+.kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-content::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(
+        to bottom,
+        rgba(248, 249, 250, 0) 0%,
+        rgba(248, 249, 250, 0.8) 50%,
+        rgba(248, 249, 250, 1) 100%
+    );
+    pointer-events: none;
 }
 
 /* リスト（ol/ul両対応） */
@@ -166,6 +209,241 @@ ul.kashiwazaki-toc-sublist {
     }
 }
 
+/* カラースキーム: ブルー */
+.kashiwazaki-toc.scheme-blue {
+    background: #e3f2fd;
+    border-color: #90caf9;
+}
+
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-header {
+    background: #bbdefb;
+    border-color: #90caf9;
+}
+
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-title {
+    color: #1565c0;
+}
+
+.kashiwazaki-toc.scheme-blue .toggle-icon {
+    border-color: #1565c0;
+}
+
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-toggle:hover {
+    background: rgba(21, 101, 192, 0.1);
+}
+
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-item a {
+    color: #1565c0;
+}
+
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-item a:hover {
+    background: #bbdefb;
+    color: #0d47a1;
+}
+
+.kashiwazaki-toc.scheme-blue .toc-number {
+    color: #42a5f5;
+}
+
+.kashiwazaki-toc.scheme-blue:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(227, 242, 253, 0) 0%,
+        rgba(227, 242, 253, 0.8) 50%,
+        rgba(227, 242, 253, 1) 100%
+    );
+}
+
+/* カラースキーム: グリーン */
+.kashiwazaki-toc.scheme-green {
+    background: #e8f5e9;
+    border-color: #a5d6a7;
+}
+
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-header {
+    background: #c8e6c9;
+    border-color: #a5d6a7;
+}
+
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-title {
+    color: #2e7d32;
+}
+
+.kashiwazaki-toc.scheme-green .toggle-icon {
+    border-color: #2e7d32;
+}
+
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-toggle:hover {
+    background: rgba(46, 125, 50, 0.1);
+}
+
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-item a {
+    color: #2e7d32;
+}
+
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-item a:hover {
+    background: #c8e6c9;
+    color: #1b5e20;
+}
+
+.kashiwazaki-toc.scheme-green .toc-number {
+    color: #66bb6a;
+}
+
+.kashiwazaki-toc.scheme-green:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(232, 245, 233, 0) 0%,
+        rgba(232, 245, 233, 0.8) 50%,
+        rgba(232, 245, 233, 1) 100%
+    );
+}
+
+/* カラースキーム: オレンジ */
+.kashiwazaki-toc.scheme-orange {
+    background: #fff3e0;
+    border-color: #ffcc80;
+}
+
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-header {
+    background: #ffe0b2;
+    border-color: #ffcc80;
+}
+
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-title {
+    color: #e65100;
+}
+
+.kashiwazaki-toc.scheme-orange .toggle-icon {
+    border-color: #e65100;
+}
+
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-toggle:hover {
+    background: rgba(230, 81, 0, 0.1);
+}
+
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-item a {
+    color: #e65100;
+}
+
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-item a:hover {
+    background: #ffe0b2;
+    color: #bf360c;
+}
+
+.kashiwazaki-toc.scheme-orange .toc-number {
+    color: #ffa726;
+}
+
+.kashiwazaki-toc.scheme-orange:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 243, 224, 0) 0%,
+        rgba(255, 243, 224, 0.8) 50%,
+        rgba(255, 243, 224, 1) 100%
+    );
+}
+
+/* カラースキーム: パープル */
+.kashiwazaki-toc.scheme-purple {
+    background: #f3e5f5;
+    border-color: #ce93d8;
+}
+
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-header {
+    background: #e1bee7;
+    border-color: #ce93d8;
+}
+
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-title {
+    color: #7b1fa2;
+}
+
+.kashiwazaki-toc.scheme-purple .toggle-icon {
+    border-color: #7b1fa2;
+}
+
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-toggle:hover {
+    background: rgba(123, 31, 162, 0.1);
+}
+
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-item a {
+    color: #7b1fa2;
+}
+
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-item a:hover {
+    background: #e1bee7;
+    color: #4a148c;
+}
+
+.kashiwazaki-toc.scheme-purple .toc-number {
+    color: #ab47bc;
+}
+
+.kashiwazaki-toc.scheme-purple:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(243, 229, 245, 0) 0%,
+        rgba(243, 229, 245, 0.8) 50%,
+        rgba(243, 229, 245, 1) 100%
+    );
+}
+
+/* カラースキーム: ダーク */
+.kashiwazaki-toc.scheme-dark {
+    background: #2d2d2d;
+    border-color: #444;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-header {
+    background: #3d3d3d;
+    border-color: #444;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-title {
+    color: #e0e0e0;
+}
+
+.kashiwazaki-toc.scheme-dark .toggle-icon {
+    border-color: #ccc;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-toggle:hover .toggle-icon {
+    border-color: #fff;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-item a {
+    color: #e0e0e0;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-item a:hover {
+    background: #3d3d3d;
+    color: #66b3ff;
+}
+
+.kashiwazaki-toc.scheme-dark .toc-number {
+    color: #999;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-item.level-4 a,
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-item.level-5 a,
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-item.level-6 a {
+    color: #bbb;
+}
+
+.kashiwazaki-toc.scheme-dark:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(45, 45, 45, 0) 0%,
+        rgba(45, 45, 45, 0.8) 50%,
+        rgba(45, 45, 45, 1) 100%
+    );
+}
+
 /* ダークモード対応（prefers-color-scheme） */
 @media (prefers-color-scheme: dark) {
     .kashiwazaki-toc {
@@ -182,15 +460,16 @@ ul.kashiwazaki-toc-sublist {
         color: #e0e0e0;
     }
 
-    .kashiwazaki-toc-toggle {
-        border-color: #666;
-        color: #ccc;
+    .toggle-icon {
+        border-color: #ccc;
     }
 
     .kashiwazaki-toc-toggle:hover {
-        background: #444;
-        border-color: #888;
-        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .kashiwazaki-toc-toggle:hover .toggle-icon {
+        border-color: #fff;
     }
 
     .kashiwazaki-toc-item a {
@@ -210,5 +489,15 @@ ul.kashiwazaki-toc-sublist {
     .kashiwazaki-toc-item.level-5 a,
     .kashiwazaki-toc-item.level-6 a {
         color: #bbb;
+    }
+
+    /* ダークモード用フェード効果 */
+    .kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-content::after {
+        background: linear-gradient(
+            to bottom,
+            rgba(45, 45, 45, 0) 0%,
+            rgba(45, 45, 45, 0.8) 50%,
+            rgba(45, 45, 45, 1) 100%
+        );
     }
 }

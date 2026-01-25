@@ -65,6 +65,7 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
             'toc_smooth_scroll'    => true,
             'toc_scroll_offset'    => 0,
             'toc_numbering'        => true,
+            'toc_color_scheme'     => 'default',
         );
 
         $options = get_option( 'kashiwazaki_seo_headline_options', array() );
@@ -288,27 +289,28 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
         $show_toggle  = ! empty( $this->options['toc_show_toggle'] );
         $default_open = ! empty( $this->options['toc_default_open'] );
         $numbering    = ! empty( $this->options['toc_numbering'] );
+        $color_scheme = isset( $this->options['toc_color_scheme'] ) ? $this->options['toc_color_scheme'] : 'default';
 
         // 開閉ボタンがない場合は常に開いた状態にする
         if ( ! $show_toggle ) {
             $default_open = true;
         }
 
-        $open_class = $default_open ? 'is-open' : '';
+        $open_class   = $default_open ? 'is-open' : '';
+        $scheme_class = 'scheme-' . sanitize_html_class( $color_scheme );
 
-        $html = '<div class="kashiwazaki-toc ' . esc_attr( $open_class ) . '">';
+        $html = '<div class="kashiwazaki-toc ' . esc_attr( $open_class ) . ' ' . esc_attr( $scheme_class ) . '">';
         $html .= '<div class="kashiwazaki-toc-header">';
         $html .= '<span class="kashiwazaki-toc-title">' . esc_html( $title ) . '</span>';
 
         if ( $show_toggle ) {
-            $toggle_text = $default_open ? '閉じる' : '開く';
-            $html .= '<button type="button" class="kashiwazaki-toc-toggle" aria-expanded="' . ( $default_open ? 'true' : 'false' ) . '">';
-            $html .= '<span class="toggle-text">' . esc_html( $toggle_text ) . '</span>';
+            $html .= '<button type="button" class="kashiwazaki-toc-toggle" aria-expanded="' . ( $default_open ? 'true' : 'false' ) . '" aria-label="' . ( $default_open ? '目次を閉じる' : '目次を開く' ) . '">';
+            $html .= '<span class="toggle-icon"></span>';
             $html .= '</button>';
         }
 
         $html .= '</div>';
-        $html .= '<nav class="kashiwazaki-toc-content" ' . ( $default_open ? '' : 'style="display:none;"' ) . '>';
+        $html .= '<nav class="kashiwazaki-toc-content">';
         $html .= $this->build_toc_list( $headings, $numbering );
         $html .= '</nav>';
         $html .= '</div>';
@@ -321,18 +323,15 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
                     if(tocToggle){
                         tocToggle.addEventListener("click", function(){
                             var toc = this.closest(".kashiwazaki-toc");
-                            var content = toc.querySelector(".kashiwazaki-toc-content");
                             var isOpen = toc.classList.contains("is-open");
                             if(isOpen){
                                 toc.classList.remove("is-open");
-                                content.style.display = "none";
-                                this.querySelector(".toggle-text").textContent = "開く";
                                 this.setAttribute("aria-expanded", "false");
+                                this.setAttribute("aria-label", "目次を開く");
                             } else {
                                 toc.classList.add("is-open");
-                                content.style.display = "block";
-                                this.querySelector(".toggle-text").textContent = "閉じる";
                                 this.setAttribute("aria-expanded", "true");
+                                this.setAttribute("aria-label", "目次を閉じる");
                             }
                         });
                     }

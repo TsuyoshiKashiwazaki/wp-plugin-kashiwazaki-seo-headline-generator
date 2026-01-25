@@ -62,87 +62,106 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
      * @return array サニタイズ済み値
      */
     public function sanitize_options( $input ) {
-        $sanitized = array();
+        // 既存の設定を取得してベースにする
+        $existing  = get_option( $this->option_name, $this->get_default_options() );
+        $sanitized = is_array( $existing ) ? $existing : $this->get_default_options();
 
-        // 見出しレベル
-        $valid_levels = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
-        $sanitized['headline_levels'] = array();
-        if ( isset( $input['headline_levels'] ) && is_array( $input['headline_levels'] ) ) {
-            foreach ( $input['headline_levels'] as $level ) {
-                if ( in_array( $level, $valid_levels, true ) ) {
-                    $sanitized['headline_levels'][] = $level;
+        // どのタブから送信されたかを判定
+        $active_tab = isset( $input['active_tab'] ) ? $input['active_tab'] : 'analysis';
+
+        // 見出し分析タブの設定
+        if ( 'analysis' === $active_tab ) {
+            // 見出しレベル
+            $valid_levels = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' );
+            $sanitized['headline_levels'] = array();
+            if ( isset( $input['headline_levels'] ) && is_array( $input['headline_levels'] ) ) {
+                foreach ( $input['headline_levels'] as $level ) {
+                    if ( in_array( $level, $valid_levels, true ) ) {
+                        $sanitized['headline_levels'][] = $level;
+                    }
                 }
             }
-        }
-        if ( empty( $sanitized['headline_levels'] ) ) {
-            $sanitized['headline_levels'] = array( 'h2', 'h3', 'h4', 'h5', 'h6' );
-        }
+            if ( empty( $sanitized['headline_levels'] ) ) {
+                $sanitized['headline_levels'] = array( 'h2', 'h3', 'h4', 'h5', 'h6' );
+            }
 
-        // 最小文字数
-        $sanitized['min_length'] = isset( $input['min_length'] ) ? absint( $input['min_length'] ) : 5;
-        if ( $sanitized['min_length'] < 1 ) {
-            $sanitized['min_length'] = 1;
-        }
+            // 最小文字数
+            $sanitized['min_length'] = isset( $input['min_length'] ) ? absint( $input['min_length'] ) : 5;
+            if ( $sanitized['min_length'] < 1 ) {
+                $sanitized['min_length'] = 1;
+            }
 
-        // 最大文字数
-        $sanitized['max_length'] = isset( $input['max_length'] ) ? absint( $input['max_length'] ) : 60;
-        if ( $sanitized['max_length'] < $sanitized['min_length'] ) {
-            $sanitized['max_length'] = $sanitized['min_length'] + 10;
-        }
+            // 最大文字数
+            $sanitized['max_length'] = isset( $input['max_length'] ) ? absint( $input['max_length'] ) : 60;
+            if ( $sanitized['max_length'] < $sanitized['min_length'] ) {
+                $sanitized['max_length'] = $sanitized['min_length'] + 10;
+            }
 
-        // 重複検出閾値
-        $sanitized['duplicate_threshold'] = isset( $input['duplicate_threshold'] ) ? absint( $input['duplicate_threshold'] ) : 80;
-        if ( $sanitized['duplicate_threshold'] < 1 ) {
-            $sanitized['duplicate_threshold'] = 1;
-        }
-        if ( $sanitized['duplicate_threshold'] > 100 ) {
-            $sanitized['duplicate_threshold'] = 100;
-        }
+            // 重複検出閾値
+            $sanitized['duplicate_threshold'] = isset( $input['duplicate_threshold'] ) ? absint( $input['duplicate_threshold'] ) : 80;
+            if ( $sanitized['duplicate_threshold'] < 1 ) {
+                $sanitized['duplicate_threshold'] = 1;
+            }
+            if ( $sanitized['duplicate_threshold'] > 100 ) {
+                $sanitized['duplicate_threshold'] = 100;
+            }
 
-        // カニバリゼーション閾値
-        $sanitized['cannibalization_threshold'] = isset( $input['cannibalization_threshold'] ) ? absint( $input['cannibalization_threshold'] ) : 80;
-        if ( $sanitized['cannibalization_threshold'] < 1 ) {
-            $sanitized['cannibalization_threshold'] = 1;
-        }
-        if ( $sanitized['cannibalization_threshold'] > 100 ) {
-            $sanitized['cannibalization_threshold'] = 100;
-        }
+            // カニバリゼーション閾値
+            $sanitized['cannibalization_threshold'] = isset( $input['cannibalization_threshold'] ) ? absint( $input['cannibalization_threshold'] ) : 80;
+            if ( $sanitized['cannibalization_threshold'] < 1 ) {
+                $sanitized['cannibalization_threshold'] = 1;
+            }
+            if ( $sanitized['cannibalization_threshold'] > 100 ) {
+                $sanitized['cannibalization_threshold'] = 100;
+            }
 
-        // 投稿タイプ（カニバリチェック用）
-        $sanitized['post_types'] = array();
-        if ( isset( $input['post_types'] ) && is_array( $input['post_types'] ) ) {
-            foreach ( $input['post_types'] as $post_type ) {
-                $sanitized['post_types'][] = sanitize_key( $post_type );
+            // 投稿タイプ（カニバリチェック用）
+            $sanitized['post_types'] = array();
+            if ( isset( $input['post_types'] ) && is_array( $input['post_types'] ) ) {
+                foreach ( $input['post_types'] as $post_type ) {
+                    $sanitized['post_types'][] = sanitize_key( $post_type );
+                }
+            }
+            if ( empty( $sanitized['post_types'] ) ) {
+                $sanitized['post_types'] = array( 'post', 'page' );
             }
         }
-        if ( empty( $sanitized['post_types'] ) ) {
-            $sanitized['post_types'] = array( 'post', 'page' );
-        }
 
-        // 目次対象投稿タイプ
-        $sanitized['toc_post_types'] = array();
-        if ( isset( $input['toc_post_types'] ) && is_array( $input['toc_post_types'] ) ) {
-            foreach ( $input['toc_post_types'] as $post_type ) {
-                $sanitized['toc_post_types'][] = sanitize_key( $post_type );
+        // 目次タブの設定
+        if ( 'toc' === $active_tab ) {
+            // 目次対象投稿タイプ
+            $sanitized['toc_post_types'] = array();
+            if ( isset( $input['toc_post_types'] ) && is_array( $input['toc_post_types'] ) ) {
+                foreach ( $input['toc_post_types'] as $post_type ) {
+                    $sanitized['toc_post_types'][] = sanitize_key( $post_type );
+                }
+            }
+            if ( empty( $sanitized['toc_post_types'] ) ) {
+                $sanitized['toc_post_types'] = array( 'post', 'page' );
+            }
+
+            // 目次設定
+            $sanitized['toc_auto_insert']     = ! empty( $input['toc_auto_insert'] );
+            $sanitized['toc_insert_position'] = isset( $input['toc_insert_position'] ) ? sanitize_key( $input['toc_insert_position'] ) : 'before_first_heading';
+            $sanitized['toc_title']           = isset( $input['toc_title'] ) ? sanitize_text_field( $input['toc_title'] ) : '目次';
+            $sanitized['toc_min_headings']    = isset( $input['toc_min_headings'] ) ? absint( $input['toc_min_headings'] ) : 2;
+            $sanitized['toc_show_toggle']     = ! empty( $input['toc_show_toggle'] );
+            $sanitized['toc_default_open']    = ! empty( $input['toc_default_open'] );
+            $sanitized['toc_smooth_scroll']   = ! empty( $input['toc_smooth_scroll'] );
+            $sanitized['toc_scroll_offset']   = isset( $input['toc_scroll_offset'] ) ? absint( $input['toc_scroll_offset'] ) : 0;
+            $sanitized['toc_numbering']       = ! empty( $input['toc_numbering'] );
+
+            if ( $sanitized['toc_min_headings'] < 1 ) {
+                $sanitized['toc_min_headings'] = 1;
             }
         }
-        if ( empty( $sanitized['toc_post_types'] ) ) {
-            $sanitized['toc_post_types'] = array( 'post', 'page' );
-        }
 
-        // 目次設定
-        $sanitized['toc_auto_insert']     = ! empty( $input['toc_auto_insert'] );
-        $sanitized['toc_insert_position'] = isset( $input['toc_insert_position'] ) ? sanitize_key( $input['toc_insert_position'] ) : 'before_first_heading';
-        $sanitized['toc_title']           = isset( $input['toc_title'] ) ? sanitize_text_field( $input['toc_title'] ) : '目次';
-        $sanitized['toc_min_headings']    = isset( $input['toc_min_headings'] ) ? absint( $input['toc_min_headings'] ) : 2;
-        $sanitized['toc_show_toggle']     = ! empty( $input['toc_show_toggle'] );
-        $sanitized['toc_default_open']    = ! empty( $input['toc_default_open'] );
-        $sanitized['toc_smooth_scroll']   = ! empty( $input['toc_smooth_scroll'] );
-        $sanitized['toc_scroll_offset']   = isset( $input['toc_scroll_offset'] ) ? absint( $input['toc_scroll_offset'] ) : 0;
-        $sanitized['toc_numbering']       = ! empty( $input['toc_numbering'] );
-
-        if ( $sanitized['toc_min_headings'] < 1 ) {
-            $sanitized['toc_min_headings'] = 1;
+        // デザインタブの設定
+        if ( 'design' === $active_tab ) {
+            $valid_schemes = array( 'default', 'blue', 'green', 'orange', 'purple', 'dark' );
+            $sanitized['toc_color_scheme'] = isset( $input['toc_color_scheme'] ) && in_array( $input['toc_color_scheme'], $valid_schemes, true )
+                ? $input['toc_color_scheme']
+                : 'default';
         }
 
         return $sanitized;
@@ -171,6 +190,7 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
             'toc_smooth_scroll'         => true,
             'toc_scroll_offset'         => 0,
             'toc_numbering'             => true,
+            'toc_color_scheme'          => 'default',
         );
     }
 
@@ -228,6 +248,11 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
                     <span class="dashicons dashicons-list-view"></span>
                     目次
                 </a>
+                <a href="?page=kashiwazaki-seo-headline-generator&tab=design"
+                   class="kashiwazaki-tab <?php echo $active_tab === 'design' ? 'active' : ''; ?>">
+                    <span class="dashicons dashicons-art"></span>
+                    デザイン
+                </a>
                 <a href="?page=kashiwazaki-seo-headline-generator&tab=help"
                    class="kashiwazaki-tab <?php echo $active_tab === 'help' ? 'active' : ''; ?>">
                     <span class="dashicons dashicons-editor-help"></span>
@@ -242,6 +267,8 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
                     <?php $this->render_tab_analysis( $options ); ?>
                 <?php elseif ( $active_tab === 'toc' ) : ?>
                     <?php $this->render_tab_toc( $options ); ?>
+                <?php elseif ( $active_tab === 'design' ) : ?>
+                    <?php $this->render_tab_design( $options ); ?>
                 <?php elseif ( $active_tab === 'help' ) : ?>
                     <?php $this->render_tab_help(); ?>
                 <?php endif; ?>
@@ -590,6 +617,7 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
     private function render_tab_analysis( $options ) {
         $post_types = get_post_types( array( 'public' => true ), 'objects' );
         ?>
+        <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[active_tab]" value="analysis">
 
         <!-- 対象投稿タイプ -->
         <div class="kashiwazaki-card">
@@ -720,6 +748,7 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
     private function render_tab_toc( $options ) {
         $post_types = get_post_types( array( 'public' => true ), 'objects' );
         ?>
+        <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[active_tab]" value="toc">
 
         <!-- 基本設定 -->
         <div class="kashiwazaki-card">
@@ -904,6 +933,188 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
             </div>
         </div>
 
+        <?php
+    }
+
+    /**
+     * デザインタブをレンダリング
+     *
+     * @param array $options オプション
+     */
+    private function render_tab_design( $options ) {
+        $color_schemes = array(
+            'default' => array(
+                'name'       => 'デフォルト（グレー）',
+                'bg'         => '#f8f9fa',
+                'header_bg'  => '#e9ecef',
+                'border'     => '#dee2e6',
+                'text'       => '#333',
+                'link_hover' => '#007bff',
+            ),
+            'blue' => array(
+                'name'       => 'ブルー',
+                'bg'         => '#e3f2fd',
+                'header_bg'  => '#bbdefb',
+                'border'     => '#90caf9',
+                'text'       => '#1565c0',
+                'link_hover' => '#0d47a1',
+            ),
+            'green' => array(
+                'name'       => 'グリーン',
+                'bg'         => '#e8f5e9',
+                'header_bg'  => '#c8e6c9',
+                'border'     => '#a5d6a7',
+                'text'       => '#2e7d32',
+                'link_hover' => '#1b5e20',
+            ),
+            'orange' => array(
+                'name'       => 'オレンジ',
+                'bg'         => '#fff3e0',
+                'header_bg'  => '#ffe0b2',
+                'border'     => '#ffcc80',
+                'text'       => '#e65100',
+                'link_hover' => '#bf360c',
+            ),
+            'purple' => array(
+                'name'       => 'パープル',
+                'bg'         => '#f3e5f5',
+                'header_bg'  => '#e1bee7',
+                'border'     => '#ce93d8',
+                'text'       => '#7b1fa2',
+                'link_hover' => '#4a148c',
+            ),
+            'dark' => array(
+                'name'       => 'ダーク',
+                'bg'         => '#2d2d2d',
+                'header_bg'  => '#3d3d3d',
+                'border'     => '#444',
+                'text'       => '#e0e0e0',
+                'link_hover' => '#66b3ff',
+            ),
+        );
+
+        $current_scheme = isset( $options['toc_color_scheme'] ) ? $options['toc_color_scheme'] : 'default';
+        ?>
+        <input type="hidden" name="<?php echo esc_attr( $this->option_name ); ?>[active_tab]" value="design">
+
+        <!-- 配色設定 -->
+        <div class="kashiwazaki-card">
+            <div class="kashiwazaki-card-header">
+                <span class="dashicons dashicons-art"></span>
+                <h3>目次の配色</h3>
+            </div>
+            <div class="kashiwazaki-card-body">
+                <div class="kashiwazaki-setting-group">
+                    <span class="kashiwazaki-setting-label">カラースキーム</span>
+                    <div class="kashiwazaki-color-scheme-grid">
+                        <?php foreach ( $color_schemes as $key => $scheme ) : ?>
+                            <label class="kashiwazaki-color-scheme-option <?php echo $current_scheme === $key ? 'selected' : ''; ?>">
+                                <input type="radio"
+                                       name="<?php echo esc_attr( $this->option_name ); ?>[toc_color_scheme]"
+                                       value="<?php echo esc_attr( $key ); ?>"
+                                       <?php checked( $current_scheme, $key ); ?>>
+                                <span class="kashiwazaki-color-preview" style="background: <?php echo esc_attr( $scheme['bg'] ); ?>; border-color: <?php echo esc_attr( $scheme['border'] ); ?>;">
+                                    <span class="preview-header" style="background: <?php echo esc_attr( $scheme['header_bg'] ); ?>; border-color: <?php echo esc_attr( $scheme['border'] ); ?>;"></span>
+                                    <span class="preview-line" style="background: <?php echo esc_attr( $scheme['text'] ); ?>;"></span>
+                                    <span class="preview-line short" style="background: <?php echo esc_attr( $scheme['text'] ); ?>;"></span>
+                                    <span class="preview-line" style="background: <?php echo esc_attr( $scheme['text'] ); ?>;"></span>
+                                </span>
+                                <span class="kashiwazaki-scheme-name"><?php echo esc_html( $scheme['name'] ); ?></span>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                    <p class="kashiwazaki-setting-description">目次の配色テーマを選択します。</p>
+                </div>
+            </div>
+        </div>
+
+        <style>
+        .kashiwazaki-color-scheme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .kashiwazaki-color-scheme-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            border: 2px solid #dcdcde;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .kashiwazaki-color-scheme-option:hover {
+            border-color: #2271b1;
+            background: #f6f7f7;
+        }
+
+        .kashiwazaki-color-scheme-option.selected {
+            border-color: #2271b1;
+            background: #e7f3ff;
+        }
+
+        .kashiwazaki-color-scheme-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .kashiwazaki-color-preview {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 60px;
+            border: 1px solid;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .kashiwazaki-color-preview .preview-header {
+            height: 16px;
+            border-bottom: 1px solid;
+        }
+
+        .kashiwazaki-color-preview .preview-line {
+            height: 6px;
+            margin: 6px 8px 0;
+            border-radius: 2px;
+            opacity: 0.7;
+        }
+
+        .kashiwazaki-color-preview .preview-line.short {
+            width: 60%;
+            margin-left: 16px;
+        }
+
+        .kashiwazaki-scheme-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: #1d2327;
+        }
+
+        @media screen and (max-width: 600px) {
+            .kashiwazaki-color-scheme-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        </style>
+
+        <script>
+        (function() {
+            var options = document.querySelectorAll('.kashiwazaki-color-scheme-option');
+            options.forEach(function(option) {
+                option.addEventListener('click', function() {
+                    options.forEach(function(o) { o.classList.remove('selected'); });
+                    this.classList.add('selected');
+                });
+            });
+        })();
+        </script>
         <?php
     }
 

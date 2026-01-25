@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-01-25
+
+### Added
+- 目次のデザイン設定タブ
+  - 6種類のカラースキーム（デフォルト、ブルー、グリーン、オレンジ、パープル、ダーク）
+- 目次閉じた状態でのプレビュー表示（チラ見）機能
+
+### Changed
+- トグルボタンをテキスト（開く/閉じる）からアイコン（シェブロン）に変更
+- トグルアイコンに回転アニメーションを追加
+
+### Fixed
+- 設定タブ間での値保持の問題を修正（デザインタブ保存時に他の設定がリセットされる問題）
+
 ## [1.0.0] - 2026-01-25
 
 ### Added
@@ -37,4 +51,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 目次設定タブ
   - 使い方タブ
 
-[1.0.0]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.0-dev
+[1.0.1]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.1-dev
+[1.0.0]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.0

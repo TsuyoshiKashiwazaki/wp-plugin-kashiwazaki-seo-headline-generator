@@ -3,7 +3,7 @@ Contributors: kashiwazakitsuyoshi
 Tags: seo, headlines, headings, toc, table of contents
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,12 @@ H1からH6まで全ての見出しレベルに対応しています。設定画�
 
 == Changelog ==
 
+= 1.0.1 =
+* 目次のデザイン設定タブを追加（6種類のカラースキーム対応）
+* 目次閉じた状態でのプレビュー表示（チラ見）機能を追加
+* トグルボタンをアイコン（シェブロン）に変更
+* 設定タブ間での値保持の問題を修正
+
 = 1.0.0 =
 * 初回リリース
 * 見出し分析機能（階層バリデーション、文字数チェック、重複検出）
@@ -69,6 +75,9 @@ H1からH6まで全ての見出しレベルに対応しています。設定画�
 * エクスポート機能（テキスト/CSV）
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+目次のデザイン設定タブ追加、チラ見プレビュー機能追加
 
 = 1.0.0 =
 初回リリース
