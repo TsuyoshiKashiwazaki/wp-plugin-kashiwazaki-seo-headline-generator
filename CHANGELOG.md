@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.2] - 2026-02-01
+
+### Changed
+- 目次トグルボタンを目次ボックスの下部（フッター）に移動
+- トグルボタンをテキストラベル（「閉じる」/「もっと見る」/「開く」）で表示するように変更
+- チラ見せON時は「もっと見る」、OFF時は「開く」を表示するように動的に切り替え
+
+### Added
+- チラ見せ時のフェード効果（かすれ）- 続きがあることを視覚的に示すグラデーション
+- 各カラースキームに対応したフェードグラデーションを追加
+
 ## [1.0.1] - 2026-01-25
 
 ### Added
@@ -51,5 +62,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 目次設定タブ
   - 使い方タブ
 
-[1.0.1]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.1-dev
+[1.0.2]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.2-dev
+[1.0.1]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.1
 [1.0.0]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.0

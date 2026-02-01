@@ -66,6 +66,8 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
             'toc_scroll_offset'    => 0,
             'toc_numbering'        => true,
             'toc_color_scheme'     => 'default',
+            'toc_preview_enabled'  => true,
+            'toc_preview_count'    => 3,
         );
 
         $options = get_option( 'kashiwazaki_seo_headline_options', array() );
@@ -286,54 +288,86 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
             $title = isset( $this->options['toc_title'] ) ? $this->options['toc_title'] : '目次';
         }
 
-        $show_toggle  = ! empty( $this->options['toc_show_toggle'] );
-        $default_open = ! empty( $this->options['toc_default_open'] );
-        $numbering    = ! empty( $this->options['toc_numbering'] );
-        $color_scheme = isset( $this->options['toc_color_scheme'] ) ? $this->options['toc_color_scheme'] : 'default';
+        $show_toggle     = ! empty( $this->options['toc_show_toggle'] );
+        $default_open    = ! empty( $this->options['toc_default_open'] );
+        $numbering       = ! empty( $this->options['toc_numbering'] );
+        $color_scheme    = isset( $this->options['toc_color_scheme'] ) ? $this->options['toc_color_scheme'] : 'default';
+        $preview_enabled = ! empty( $this->options['toc_preview_enabled'] );
+        $preview_count   = isset( $this->options['toc_preview_count'] ) ? intval( $this->options['toc_preview_count'] ) : 3;
 
         // 開閉ボタンがない場合は常に開いた状態にする
         if ( ! $show_toggle ) {
             $default_open = true;
         }
 
-        $open_class   = $default_open ? 'is-open' : '';
-        $scheme_class = 'scheme-' . sanitize_html_class( $color_scheme );
+        $open_class    = $default_open ? 'is-open' : '';
+        $scheme_class  = 'scheme-' . sanitize_html_class( $color_scheme );
+        $preview_class = $preview_enabled ? 'has-preview' : 'no-preview';
 
-        $html = '<div class="kashiwazaki-toc ' . esc_attr( $open_class ) . ' ' . esc_attr( $scheme_class ) . '">';
+        $html = '<div class="kashiwazaki-toc ' . esc_attr( $open_class ) . ' ' . esc_attr( $scheme_class ) . ' ' . esc_attr( $preview_class ) . '" data-preview-count="' . esc_attr( $preview_count ) . '">';
         $html .= '<div class="kashiwazaki-toc-header">';
         $html .= '<span class="kashiwazaki-toc-title">' . esc_html( $title ) . '</span>';
-
-        if ( $show_toggle ) {
-            $html .= '<button type="button" class="kashiwazaki-toc-toggle" aria-expanded="' . ( $default_open ? 'true' : 'false' ) . '" aria-label="' . ( $default_open ? '目次を閉じる' : '目次を開く' ) . '">';
-            $html .= '<span class="toggle-icon"></span>';
-            $html .= '</button>';
-        }
-
         $html .= '</div>';
         $html .= '<nav class="kashiwazaki-toc-content">';
         $html .= $this->build_toc_list( $headings, $numbering );
         $html .= '</nav>';
+
+        if ( $show_toggle ) {
+            $open_text = $preview_enabled ? 'もっと見る' : '開く';
+            $html .= '<div class="kashiwazaki-toc-footer">';
+            $html .= '<button type="button" class="kashiwazaki-toc-toggle" aria-expanded="' . ( $default_open ? 'true' : 'false' ) . '" aria-label="' . ( $default_open ? '目次を閉じる' : '目次を開く' ) . '">';
+            $html .= '<span class="toggle-text-close">閉じる</span>';
+            $html .= '<span class="toggle-text-open">' . esc_html( $open_text ) . '</span>';
+            $html .= '</button>';
+            $html .= '</div>';
+        }
+
         $html .= '</div>';
 
         // トグル用インラインスクリプト
         if ( $show_toggle ) {
             $html .= '<script>
                 document.addEventListener("DOMContentLoaded", function(){
+                    var toc = document.querySelector(".kashiwazaki-toc");
                     var tocToggle = document.querySelector(".kashiwazaki-toc-toggle");
-                    if(tocToggle){
-                        tocToggle.addEventListener("click", function(){
-                            var toc = this.closest(".kashiwazaki-toc");
+                    var tocContent = document.querySelector(".kashiwazaki-toc-content");
+
+                    if(toc && tocContent){
+                        // チラ見せ件数に基づいてアイテムを表示/非表示
+                        var previewCount = parseInt(toc.getAttribute("data-preview-count")) || 3;
+                        var hasPreview = toc.classList.contains("has-preview");
+                        // すべてのli要素を取得（ネストされたものも含む）
+                        var allItems = tocContent.querySelectorAll(".kashiwazaki-toc-item");
+
+                        function updatePreview() {
                             var isOpen = toc.classList.contains("is-open");
-                            if(isOpen){
-                                toc.classList.remove("is-open");
-                                this.setAttribute("aria-expanded", "false");
-                                this.setAttribute("aria-label", "目次を開く");
-                            } else {
-                                toc.classList.add("is-open");
-                                this.setAttribute("aria-expanded", "true");
-                                this.setAttribute("aria-label", "目次を閉じる");
-                            }
-                        });
+                            allItems.forEach(function(item, index) {
+                                if(isOpen || !hasPreview) {
+                                    item.style.display = "";
+                                } else {
+                                    item.style.display = index < previewCount ? "" : "none";
+                                }
+                            });
+                        }
+
+                        // 初期表示
+                        updatePreview();
+
+                        if(tocToggle){
+                            tocToggle.addEventListener("click", function(){
+                                var isOpen = toc.classList.contains("is-open");
+                                if(isOpen){
+                                    toc.classList.remove("is-open");
+                                    this.setAttribute("aria-expanded", "false");
+                                    this.setAttribute("aria-label", "目次を開く");
+                                } else {
+                                    toc.classList.add("is-open");
+                                    this.setAttribute("aria-expanded", "true");
+                                    this.setAttribute("aria-label", "目次を閉じる");
+                                }
+                                updatePreview();
+                            });
+                        }
                     }
                 });
             </script>';

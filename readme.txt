@@ -3,7 +3,7 @@ Contributors: kashiwazakitsuyoshi
 Tags: seo, headlines, headings, toc, table of contents
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,11 @@ H1からH6まで全ての見出しレベルに対応しています。設定画�
 
 == Changelog ==
 
+= 1.0.2 =
+* 目次トグルボタンを下部に移動し、テキストラベル（「閉じる」/「もっと見る」/「開く」）で表示
+* チラ見せ時のフェード効果（かすれ）を追加 - 続きがあることを視覚的に示す
+* チラ見せON/OFFに応じてボタンテキストを動的に変更（OFF:「開く」、ON:「もっと見る」）
+
 = 1.0.1 =
 * 目次のデザイン設定タブを追加（6種類のカラースキーム対応）
 * 目次閉じた状態でのプレビュー表示（チラ見）機能を追加
@@ -75,6 +80,9 @@ H1からH6まで全ての見出しレベルに対応しています。設定画�
 * エクスポート機能（テキスト/CSV）
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+目次トグルボタンのUI改善、フェード効果追加
 
 = 1.0.1 =
 目次のデザイン設定タブ追加、チラ見プレビュー機能追加

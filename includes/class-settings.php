@@ -150,9 +150,17 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
             $sanitized['toc_smooth_scroll']   = ! empty( $input['toc_smooth_scroll'] );
             $sanitized['toc_scroll_offset']   = isset( $input['toc_scroll_offset'] ) ? absint( $input['toc_scroll_offset'] ) : 0;
             $sanitized['toc_numbering']       = ! empty( $input['toc_numbering'] );
+            $sanitized['toc_preview_enabled'] = ! empty( $input['toc_preview_enabled'] );
+            $sanitized['toc_preview_count']   = isset( $input['toc_preview_count'] ) ? absint( $input['toc_preview_count'] ) : 3;
 
             if ( $sanitized['toc_min_headings'] < 1 ) {
                 $sanitized['toc_min_headings'] = 1;
+            }
+            if ( $sanitized['toc_preview_count'] < 1 ) {
+                $sanitized['toc_preview_count'] = 1;
+            }
+            if ( $sanitized['toc_preview_count'] > 20 ) {
+                $sanitized['toc_preview_count'] = 20;
             }
         }
 
@@ -191,6 +199,8 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
             'toc_scroll_offset'         => 0,
             'toc_numbering'             => true,
             'toc_color_scheme'          => 'default',
+            'toc_preview_enabled'       => true,
+            'toc_preview_count'         => 3,
         );
     }
 
@@ -881,14 +891,54 @@ class Kashiwazaki_SEO_Headline_Generator_Settings {
                     </div>
                     <p class="kashiwazaki-setting-description">オフにすると、目次は閉じた状態で表示されます。</p>
                 </div>
+
+                <div class="kashiwazaki-setting-group" id="kashiwazaki-toc-preview-group" style="<?php echo empty( $options['toc_show_toggle'] ) ? 'display:none;' : ''; ?>">
+                    <div class="kashiwazaki-toggle">
+                        <label class="kashiwazaki-switch">
+                            <input type="checkbox"
+                                   name="<?php echo esc_attr( $this->option_name ); ?>[toc_preview_enabled]"
+                                   value="1"
+                                   id="kashiwazaki-toc-preview-enabled"
+                                   <?php checked( ! empty( $options['toc_preview_enabled'] ) ); ?>>
+                            <span class="kashiwazaki-slider"></span>
+                        </label>
+                        <span class="kashiwazaki-setting-label" style="margin-bottom: 0;">閉じた時にチラ見せ表示する</span>
+                    </div>
+                    <p class="kashiwazaki-setting-description">オフにすると、閉じた時に目次が完全に非表示になります。</p>
+                </div>
+
+                <div class="kashiwazaki-setting-group" id="kashiwazaki-toc-preview-count-group" style="<?php echo ( empty( $options['toc_show_toggle'] ) || empty( $options['toc_preview_enabled'] ) ) ? 'display:none;' : ''; ?>">
+                    <span class="kashiwazaki-setting-label">チラ見せ件数</span>
+                    <div class="kashiwazaki-inline-input">
+                        <input type="number"
+                               name="<?php echo esc_attr( $this->option_name ); ?>[toc_preview_count]"
+                               value="<?php echo esc_attr( $options['toc_preview_count'] ); ?>"
+                               min="1" max="20" class="small-text">
+                        <span>件</span>
+                    </div>
+                    <p class="kashiwazaki-setting-description">閉じた状態で表示する見出しの数を設定します。</p>
+                </div>
+
                 <script>
                 (function() {
                     var toggleCheckbox = document.getElementById('kashiwazaki-toc-show-toggle');
                     var defaultOpenGroup = document.getElementById('kashiwazaki-toc-default-open-group');
-                    if (toggleCheckbox && defaultOpenGroup) {
-                        toggleCheckbox.addEventListener('change', function() {
-                            defaultOpenGroup.style.display = this.checked ? '' : 'none';
-                        });
+                    var previewGroup = document.getElementById('kashiwazaki-toc-preview-group');
+                    var previewEnabledCheckbox = document.getElementById('kashiwazaki-toc-preview-enabled');
+                    var previewCountGroup = document.getElementById('kashiwazaki-toc-preview-count-group');
+
+                    function updateVisibility() {
+                        var showToggle = toggleCheckbox.checked;
+                        var previewEnabled = previewEnabledCheckbox.checked;
+
+                        defaultOpenGroup.style.display = showToggle ? '' : 'none';
+                        previewGroup.style.display = showToggle ? '' : 'none';
+                        previewCountGroup.style.display = (showToggle && previewEnabled) ? '' : 'none';
+                    }
+
+                    if (toggleCheckbox && defaultOpenGroup && previewGroup && previewEnabledCheckbox && previewCountGroup) {
+                        toggleCheckbox.addEventListener('change', updateVisibility);
+                        previewEnabledCheckbox.addEventListener('change', updateVisibility);
                     }
                 })();
                 </script>

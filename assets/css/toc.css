@@ -40,46 +40,56 @@
     font-size: 1em;
 }
 
+/* フッター（開閉ボタン格納） */
+.kashiwazaki-toc-footer {
+    border-top: 1px solid #dee2e6;
+    text-align: center;
+    background: #e9ecef;
+    border-radius: 0 0 7px 7px;
+}
+
 /* トグルボタン */
 .kashiwazaki-toc-toggle {
     background: none;
     border: none;
-    padding: 8px;
+    padding: 10px 20px;
     cursor: pointer;
     transition: all 0.2s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    gap: 6px;
     border-radius: 4px;
+    font-size: 0.9em;
+    color: #495057;
+    width: 100%;
 }
 
 .kashiwazaki-toc-toggle:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.05);
+    color: #007bff;
 }
 
 .kashiwazaki-toc-toggle:focus {
     outline: 2px solid #007bff;
-    outline-offset: 2px;
+    outline-offset: -2px;
 }
 
-/* トグルアイコン（シェブロン） */
-.toggle-icon {
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-right: 2px solid #495057;
-    border-bottom: 2px solid #495057;
-    transform: rotate(45deg);
-    transition: transform 0.3s ease;
-    margin-top: -3px;
+/* トグルテキスト表示切り替え */
+.kashiwazaki-toc.is-open .toggle-text-open {
+    display: none;
 }
 
-/* 開いている状態でアイコンを上向きに */
-.kashiwazaki-toc.is-open .toggle-icon {
-    transform: rotate(-135deg);
-    margin-top: 3px;
+.kashiwazaki-toc.is-open .toggle-text-close {
+    display: inline;
+}
+
+.kashiwazaki-toc:not(.is-open) .toggle-text-open {
+    display: inline;
+}
+
+.kashiwazaki-toc:not(.is-open) .toggle-text-close {
+    display: none;
 }
 
 /* コンテンツ */
@@ -88,27 +98,38 @@
     position: relative;
 }
 
-/* 閉じた状態でのプレビュー表示 */
-.kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-content {
-    max-height: 180px;
-    overflow: hidden;
+/* チラ見せ無効：閉じた状態で完全非表示 */
+.kashiwazaki-toc.no-preview:not(.is-open) .kashiwazaki-toc-content {
+    display: none;
 }
 
-/* 閉じた状態のフェードアウト効果 */
-.kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-content::after {
+/* チラ見せ無効：閉じた状態でフッターの角丸を調整 */
+.kashiwazaki-toc.no-preview:not(.is-open) .kashiwazaki-toc-header {
+    border-radius: 7px 7px 0 0;
+    border-bottom: none;
+}
+
+/* チラ見せ有効：閉じた状態でフェードアウト効果 */
+.kashiwazaki-toc.has-preview:not(.is-open) .kashiwazaki-toc-content {
+    padding-bottom: 0;
+    overflow: visible;
+}
+
+.kashiwazaki-toc.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 80px;
+    height: 60px;
     background: linear-gradient(
         to bottom,
         rgba(248, 249, 250, 0) 0%,
-        rgba(248, 249, 250, 0.8) 50%,
+        rgba(248, 249, 250, 0.95) 70%,
         rgba(248, 249, 250, 1) 100%
     );
     pointer-events: none;
+    z-index: 100;
 }
 
 /* リスト（ol/ul両対応） */
@@ -224,12 +245,27 @@ ul.kashiwazaki-toc-sublist {
     color: #1565c0;
 }
 
-.kashiwazaki-toc.scheme-blue .toggle-icon {
-    border-color: #1565c0;
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-footer {
+    background: #bbdefb;
+    border-color: #90caf9;
+}
+
+.kashiwazaki-toc.scheme-blue .kashiwazaki-toc-toggle {
+    color: #1565c0;
 }
 
 .kashiwazaki-toc.scheme-blue .kashiwazaki-toc-toggle:hover {
     background: rgba(21, 101, 192, 0.1);
+    color: #0d47a1;
+}
+
+.kashiwazaki-toc.scheme-blue.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(227, 242, 253, 0) 0%,
+        rgba(227, 242, 253, 0.9) 70%,
+        rgba(227, 242, 253, 1) 100%
+    );
 }
 
 .kashiwazaki-toc.scheme-blue .kashiwazaki-toc-item a {
@@ -245,14 +281,6 @@ ul.kashiwazaki-toc-sublist {
     color: #42a5f5;
 }
 
-.kashiwazaki-toc.scheme-blue:not(.is-open) .kashiwazaki-toc-content::after {
-    background: linear-gradient(
-        to bottom,
-        rgba(227, 242, 253, 0) 0%,
-        rgba(227, 242, 253, 0.8) 50%,
-        rgba(227, 242, 253, 1) 100%
-    );
-}
 
 /* カラースキーム: グリーン */
 .kashiwazaki-toc.scheme-green {
@@ -269,12 +297,27 @@ ul.kashiwazaki-toc-sublist {
     color: #2e7d32;
 }
 
-.kashiwazaki-toc.scheme-green .toggle-icon {
-    border-color: #2e7d32;
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-footer {
+    background: #c8e6c9;
+    border-color: #a5d6a7;
+}
+
+.kashiwazaki-toc.scheme-green .kashiwazaki-toc-toggle {
+    color: #2e7d32;
 }
 
 .kashiwazaki-toc.scheme-green .kashiwazaki-toc-toggle:hover {
     background: rgba(46, 125, 50, 0.1);
+    color: #1b5e20;
+}
+
+.kashiwazaki-toc.scheme-green.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(232, 245, 233, 0) 0%,
+        rgba(232, 245, 233, 0.9) 70%,
+        rgba(232, 245, 233, 1) 100%
+    );
 }
 
 .kashiwazaki-toc.scheme-green .kashiwazaki-toc-item a {
@@ -290,14 +333,6 @@ ul.kashiwazaki-toc-sublist {
     color: #66bb6a;
 }
 
-.kashiwazaki-toc.scheme-green:not(.is-open) .kashiwazaki-toc-content::after {
-    background: linear-gradient(
-        to bottom,
-        rgba(232, 245, 233, 0) 0%,
-        rgba(232, 245, 233, 0.8) 50%,
-        rgba(232, 245, 233, 1) 100%
-    );
-}
 
 /* カラースキーム: オレンジ */
 .kashiwazaki-toc.scheme-orange {
@@ -314,12 +349,27 @@ ul.kashiwazaki-toc-sublist {
     color: #e65100;
 }
 
-.kashiwazaki-toc.scheme-orange .toggle-icon {
-    border-color: #e65100;
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-footer {
+    background: #ffe0b2;
+    border-color: #ffcc80;
+}
+
+.kashiwazaki-toc.scheme-orange .kashiwazaki-toc-toggle {
+    color: #e65100;
 }
 
 .kashiwazaki-toc.scheme-orange .kashiwazaki-toc-toggle:hover {
     background: rgba(230, 81, 0, 0.1);
+    color: #bf360c;
+}
+
+.kashiwazaki-toc.scheme-orange.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 243, 224, 0) 0%,
+        rgba(255, 243, 224, 0.95) 70%,
+        rgba(255, 243, 224, 1) 100%
+    );
 }
 
 .kashiwazaki-toc.scheme-orange .kashiwazaki-toc-item a {
@@ -335,14 +385,6 @@ ul.kashiwazaki-toc-sublist {
     color: #ffa726;
 }
 
-.kashiwazaki-toc.scheme-orange:not(.is-open) .kashiwazaki-toc-content::after {
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 243, 224, 0) 0%,
-        rgba(255, 243, 224, 0.8) 50%,
-        rgba(255, 243, 224, 1) 100%
-    );
-}
 
 /* カラースキーム: パープル */
 .kashiwazaki-toc.scheme-purple {
@@ -359,12 +401,27 @@ ul.kashiwazaki-toc-sublist {
     color: #7b1fa2;
 }
 
-.kashiwazaki-toc.scheme-purple .toggle-icon {
-    border-color: #7b1fa2;
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-footer {
+    background: #e1bee7;
+    border-color: #ce93d8;
+}
+
+.kashiwazaki-toc.scheme-purple .kashiwazaki-toc-toggle {
+    color: #7b1fa2;
 }
 
 .kashiwazaki-toc.scheme-purple .kashiwazaki-toc-toggle:hover {
     background: rgba(123, 31, 162, 0.1);
+    color: #4a148c;
+}
+
+.kashiwazaki-toc.scheme-purple.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(243, 229, 245, 0) 0%,
+        rgba(243, 229, 245, 0.9) 70%,
+        rgba(243, 229, 245, 1) 100%
+    );
 }
 
 .kashiwazaki-toc.scheme-purple .kashiwazaki-toc-item a {
@@ -380,14 +437,6 @@ ul.kashiwazaki-toc-sublist {
     color: #ab47bc;
 }
 
-.kashiwazaki-toc.scheme-purple:not(.is-open) .kashiwazaki-toc-content::after {
-    background: linear-gradient(
-        to bottom,
-        rgba(243, 229, 245, 0) 0%,
-        rgba(243, 229, 245, 0.8) 50%,
-        rgba(243, 229, 245, 1) 100%
-    );
-}
 
 /* カラースキーム: ダーク */
 .kashiwazaki-toc.scheme-dark {
@@ -404,16 +453,27 @@ ul.kashiwazaki-toc-sublist {
     color: #e0e0e0;
 }
 
-.kashiwazaki-toc.scheme-dark .toggle-icon {
-    border-color: #ccc;
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-footer {
+    background: #3d3d3d;
+    border-color: #444;
+}
+
+.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-toggle {
+    color: #ccc;
 }
 
 .kashiwazaki-toc.scheme-dark .kashiwazaki-toc-toggle:hover {
     background: rgba(255, 255, 255, 0.1);
+    color: #fff;
 }
 
-.kashiwazaki-toc.scheme-dark .kashiwazaki-toc-toggle:hover .toggle-icon {
-    border-color: #fff;
+.kashiwazaki-toc.scheme-dark.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
+    background: linear-gradient(
+        to bottom,
+        rgba(45, 45, 45, 0) 0%,
+        rgba(45, 45, 45, 0.9) 70%,
+        rgba(45, 45, 45, 1) 100%
+    );
 }
 
 .kashiwazaki-toc.scheme-dark .kashiwazaki-toc-item a {
@@ -435,14 +495,6 @@ ul.kashiwazaki-toc-sublist {
     color: #bbb;
 }
 
-.kashiwazaki-toc.scheme-dark:not(.is-open) .kashiwazaki-toc-content::after {
-    background: linear-gradient(
-        to bottom,
-        rgba(45, 45, 45, 0) 0%,
-        rgba(45, 45, 45, 0.8) 50%,
-        rgba(45, 45, 45, 1) 100%
-    );
-}
 
 /* ダークモード対応（prefers-color-scheme） */
 @media (prefers-color-scheme: dark) {
@@ -460,16 +512,18 @@ ul.kashiwazaki-toc-sublist {
         color: #e0e0e0;
     }
 
-    .toggle-icon {
-        border-color: #ccc;
+    .kashiwazaki-toc-footer {
+        background: #3d3d3d;
+        border-color: #444;
+    }
+
+    .kashiwazaki-toc-toggle {
+        color: #ccc;
     }
 
     .kashiwazaki-toc-toggle:hover {
         background: rgba(255, 255, 255, 0.1);
-    }
-
-    .kashiwazaki-toc-toggle:hover .toggle-icon {
-        border-color: #fff;
+        color: #fff;
     }
 
     .kashiwazaki-toc-item a {
@@ -491,12 +545,11 @@ ul.kashiwazaki-toc-sublist {
         color: #bbb;
     }
 
-    /* ダークモード用フェード効果 */
-    .kashiwazaki-toc:not(.is-open) .kashiwazaki-toc-content::after {
+    .kashiwazaki-toc.has-preview:not(.is-open) .kashiwazaki-toc-content::after {
         background: linear-gradient(
             to bottom,
             rgba(45, 45, 45, 0) 0%,
-            rgba(45, 45, 45, 0.8) 50%,
+            rgba(45, 45, 45, 0.9) 70%,
             rgba(45, 45, 45, 1) 100%
         );
     }

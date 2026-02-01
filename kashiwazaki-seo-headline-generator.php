@@ -3,7 +3,7 @@
  * Plugin Name: Kashiwazaki SEO Headline Generator
  * Plugin URI: https://www.tsuyoshikashiwazaki.jp
  * Description: 投稿の見出し構造を分析し、SEO最適化のための警告と提案を提供するプラグイン。階層構造バリデーション、文字数チェック、重複検出、サイト内カニバリチェック機能を搭載。
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: 柏崎剛 (Tsuyoshi Kashiwazaki)
  * Author URI: https://www.tsuyoshikashiwazaki.jp/profile/
  * License: GPL v2 or later
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // プラグイン定数
-define( 'KASHIWAZAKI_SEO_HEADLINE_VERSION', '1.0.1' );
+define( 'KASHIWAZAKI_SEO_HEADLINE_VERSION', '1.0.2' );
 define( 'KASHIWAZAKI_SEO_HEADLINE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'KASHIWAZAKI_SEO_HEADLINE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'KASHIWAZAKI_SEO_HEADLINE_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
