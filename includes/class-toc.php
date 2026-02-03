@@ -38,8 +38,9 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
         add_shortcode( 'kashiwazaki_toc', array( $this, 'shortcode_toc' ) );
 
         // 自動挿入フィルター
+        // 優先度13: add_heading_ids（優先度12）の後に実行
         if ( ! empty( $this->options['toc_auto_insert'] ) ) {
-            add_filter( 'the_content', array( $this, 'auto_insert_toc' ), 10 );
+            add_filter( 'the_content', array( $this, 'auto_insert_toc' ), 13 );
         }
 
         // フロントエンド用CSS
@@ -153,7 +154,10 @@ class Kashiwazaki_SEO_Headline_Generator_TOC {
                         if(!link) return;
 
                         var targetId = link.getAttribute('href');
-                        var target = document.querySelector(targetId);
+                        try {
+                            targetId = decodeURIComponent(targetId);
+                        } catch(err) {}
+                        var target = document.getElementById(targetId.substring(1));
                         if(!target) return;
 
                         e.preventDefault();

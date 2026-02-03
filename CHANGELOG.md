@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.3] - 2026-02-03
+
+### Fixed
+- 目次アンカーリンクで日本語見出しにスクロールしない問題を修正
+  - URLエンコードされた日本語IDを正しくデコードするように修正
+  - `querySelector()`を`getElementById()`に変更し特殊文字を含むIDに対応
+- ショートコードで生成された見出し（FAQプラグイン等）にIDが付与されない問題を修正
+  - フィルター優先度を調整（ショートコード処理後にID付与を実行）
+
 ## [1.0.2] - 2026-02-01
 
 ### Changed
@@ -62,6 +71,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 目次設定タブ
   - 使い方タブ
 
-[1.0.2]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.2-dev
+[1.0.3]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.3-dev
+[1.0.2]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.2
 [1.0.1]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.1
 [1.0.0]: https://github.com/TsuyoshiKashiwazaki/wp-plugin-kashiwazaki-seo-headline-generator/releases/tag/v1.0.0
