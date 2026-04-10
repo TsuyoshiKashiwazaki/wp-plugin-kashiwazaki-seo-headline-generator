@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インストール・初期設定 - Kashiwazaki SEO Headline Generator マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+
+<button class="hamburger-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header"><h2 style="color:#fff;">Headline Generator</h2><span class="version">v1.0.3</span><img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;"></div>
+    <ul><li><a href="index.html">概要</a></li><li><a href="setup.html">インストール・初期設定</a></li><li><a href="headline-analysis.html">見出し分析の使い方</a></li><li><a href="troubleshooting.html">トラブルシューティング</a></li></ul>
+</nav>
+
+<main class="content">
+    <h1>インストール・初期設定</h1>
+
+    <p class="lead">Kashiwazaki SEO Headline Generator のインストールから初期設定までの手順を説明します。外部通信やCronジョブは使用しないため、シンプルにセットアップできます。</p>
+
+    <h2>動作要件</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">要件</th>
+                <th>バージョン</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>WordPress</td>
+                <td>5.0 以上</td>
+            </tr>
+            <tr>
+                <td>PHP</td>
+                <td>7.4 以上</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>インストール手順</h2>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>WordPress管理画面の「プラグイン」→「新規追加」→「プラグインのアップロード」からZIPファイルをアップロードします。または、<code>wp-content/plugins/</code> ディレクトリにFTPで展開します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>「プラグイン」一覧画面で「Kashiwazaki SEO Headline Generator」を有効化します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>有効化後、管理画面の左メニューに「Kashiwazaki SEO Headline Generator」が追加されます。設定ページで見出し分析や目次生成の設定をカスタマイズできます。</p>
+        </div>
+    </div>
+
+    <figure class="screenshot">
+        <img src="images/screenshots/00-menu-location.png" alt="管理画面メニューの位置" class="lightbox-trigger">
+        <figcaption>管理画面の左メニューにプラグインが追加されます</figcaption>
+    </figure>
+
+    <div class="callout callout-tip">
+        <p class="callout-title">ヒント</p>
+        <p>プラグインの有効化直後から、見出しへの自動ID付与と見出し分析機能が利用可能です。目次（TOC）の自動挿入は設定で有効化してください。</p>
+    </div>
+
+    <h2>設定ページ</h2>
+
+    <p>管理画面の左メニュー「Kashiwazaki SEO Headline Generator」をクリックすると設定ページが表示されます。見出し分析のオプションや目次生成の設定を行えます。</p>
+
+    <h3>設定項目</h3>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">設定項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>見出し自動ID付与</td>
+                <td>H1〜H6タグにアンカー用のIDを自動付与します。ページ内リンクやTOCに使用されます</td>
+            </tr>
+            <tr>
+                <td>目次の自動挿入</td>
+                <td>記事の見出しからTable of Contentsを自動生成し、指定位置に挿入します</td>
+            </tr>
+            <tr>
+                <td>分析対象見出しレベル</td>
+                <td>分析や目次生成の対象となる見出しレベル（H2〜H6）を選択します</td>
+            </tr>
+            <tr>
+                <td>カニバリゼーション検出</td>
+                <td>サイト全体で類似する見出しを検出する機能の有効/無効を設定します</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-note">
+        <p class="callout-title">補足</p>
+        <p>設定の保存にはnonce検証と<code>manage_options</code>権限が必要です。管理者権限を持つユーザーのみ設定を変更できます。</p>
+    </div>
+
+    <h2>データ保存について</h2>
+
+    <p>設定データは<code>wp_options</code>テーブルの<code>kashiwazaki_seo_headline_options</code>キーに保存されます。カスタムテーブルは作成しません。</p>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">項目</th>
+                <th>内容</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>保存先</td>
+                <td>wp_options テーブル</td>
+            </tr>
+            <tr>
+                <td>オプションキー</td>
+                <td>kashiwazaki_seo_headline_options</td>
+            </tr>
+            <tr>
+                <td>カスタムテーブル</td>
+                <td>なし</td>
+            </tr>
+            <tr>
+                <td>外部通信</td>
+                <td>なし（AJAXハンドラはWordPress内部のadmin-ajax.phpを使用）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav class="page-nav">
+        <a href="index.html" class="prev">&laquo; 概要</a>
+        <a href="headline-analysis.html" class="next">見出し分析の使い方 &raquo;</a>
+    </div>
+
+    <footer class="manual-footer"><p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p><p>プラグイン: Kashiwazaki SEO Headline Generator v1.0.3</p></footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トラブルシューティング - Kashiwazaki SEO Headline Generator マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+
+<button class="hamburger-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header"><h2 style="color:#fff;">Headline Generator</h2><span class="version">v1.0.3</span><img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;"></div>
+    <ul><li><a href="index.html">概要</a></li><li><a href="setup.html">インストール・初期設定</a></li><li><a href="headline-analysis.html">見出し分析の使い方</a></li><li><a href="troubleshooting.html">トラブルシューティング</a></li></ul>
+</nav>
+
+<main class="content">
+    <h1>トラブルシューティング</h1>
+
+    <p class="lead">Kashiwazaki SEO Headline Generator の使用中に発生する可能性のある問題と、その対処方法をまとめています。</p>
+
+    <h2>見出し分析が表示されない</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>プラグインが無効</td>
+                <td>「プラグイン」一覧で Kashiwazaki SEO Headline Generator が有効化されているか確認してください</td>
+            </tr>
+            <tr>
+                <td>JavaScriptエラー</td>
+                <td>ブラウザの開発者ツール（Console）でJSエラーがないか確認してください。他プラグインとの競合の可能性があります</td>
+            </tr>
+            <tr>
+                <td>管理画面JS未読込</td>
+                <td>開発者ツールのNetworkタブで管理画面JS（32KB）が正しく読み込まれているか確認してください</td>
+            </tr>
+            <tr>
+                <td>投稿タイプ非対応</td>
+                <td>カスタム投稿タイプを使用している場合、見出し分析の対象になっているか設定を確認してください</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>目次（TOC）が表示されない</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>TOC自動挿入が無効</td>
+                <td>設定ページで「目次の自動挿入」が有効になっているか確認してください</td>
+            </tr>
+            <tr>
+                <td>見出しが少ない</td>
+                <td>記事内に対象レベルの見出しが一定数以上存在しない場合、TOCが生成されないことがあります</td>
+            </tr>
+            <tr>
+                <td>キャッシュ</td>
+                <td>キャッシュプラグインやCDNのキャッシュをクリアしてください</td>
+            </tr>
+            <tr>
+                <td>テーマとの競合</td>
+                <td>テーマが独自のTOC機能を持っている場合、競合する可能性があります。どちらか一方を無効にしてください</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>見出しIDが付与されない</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>自動ID付与が無効</td>
+                <td>設定ページで「見出し自動ID付与」が有効になっているか確認してください</td>
+            </tr>
+            <tr>
+                <td>the_contentフィルタ未適用</td>
+                <td>テーマが<code>the_content</code>フィルタを適用していない場所に見出しがある場合、IDは付与されません</td>
+            </tr>
+            <tr>
+                <td>他プラグインとの競合</td>
+                <td>他のTOCプラグインやID付与プラグインと競合している場合、一方を無効にしてください</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>カニバリゼーション検出が動作しない</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>機能が無効</td>
+                <td>設定ページでカニバリゼーション検出が有効になっているか確認してください</td>
+            </tr>
+            <tr>
+                <td>AJAXエラー</td>
+                <td>ブラウザの開発者ツール（Console、Network）でAJAXリクエストが正しく処理されているか確認してください</td>
+            </tr>
+            <tr>
+                <td>タイムアウト</td>
+                <td>投稿数が非常に多い場合、スキャンがタイムアウトする場合があります。PHPの<code>max_execution_time</code>を確認してください</td>
+            </tr>
+            <tr>
+                <td>セキュリティプラグイン</td>
+                <td>WAFやセキュリティプラグインがAJAXリクエストをブロックしている可能性があります</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+        <p class="callout-title">検証方法</p>
+        <p>カニバリゼーション検出のスキャンが失敗する場合、ブラウザの開発者ツールのNetworkタブでadmin-ajax.phpへのリクエストとレスポンスを確認してください。</p>
+    </div>
+
+    <h2>設定が保存できない</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">原因</th>
+                <th>対処法</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>権限不足</td>
+                <td>設定の変更には<code>manage_options</code>権限（管理者）が必要です。現在のユーザーの権限を確認してください</td>
+            </tr>
+            <tr>
+                <td>nonce検証エラー</td>
+                <td>セッションが切れている可能性があります。ページをリロードして再度保存してください</td>
+            </tr>
+            <tr>
+                <td>セキュリティプラグイン</td>
+                <td>WAFやセキュリティプラグインがPOSTリクエストをブロックしている可能性があります。一時的に無効化して確認してください</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>よくある質問</h2>
+
+    <h3>プラグインを無効化するとデータはどうなりますか？</h3>
+
+    <p>プラグインを無効化しても、<code>wp_options</code>に保存された設定データ（<code>kashiwazaki_seo_headline_options</code>）は残ります。見出しのIDと目次はプラグインが無効化されると出力されなくなりますが、記事の見出し自体には影響しません。</p>
+
+    <h3>他のTOCプラグインと併用できますか？</h3>
+
+    <p>技術的には併用可能ですが、目次が重複して表示される場合があります。他のTOCプラグインを使用している場合は、本プラグインの目次自動挿入機能を無効にし、見出し分析・カニバリゼーション検出のみを使用することを推奨します。</p>
+
+    <h3>外部への通信は行いますか？</h3>
+
+    <p>いいえ。本プラグインは外部HTTP通信、Cronジョブ、メール送信を行いません。AJAXハンドラ（2件）はWordPress内部のadmin-ajax.phpを使用しており、外部サーバーへの通信ではありません。</p>
+
+    <div class="callout callout-warning">
+        <p class="callout-title">注意</p>
+        <p>問題が解決しない場合は、WordPress本体（5.0以上）・PHP（7.4以上）・テーマのバージョンが要件を満たしているか確認してください。また、他プラグインとの競合を確認するため、プラグインを1つずつ無効化して問題の切り分けを行ってください。</p>
+    </div>
+
+    <nav class="page-nav">
+        <a href="headline-analysis.html" class="prev">&laquo; 見出し分析の使い方</a>
+        <span></span>
+    </div>
+
+    <footer class="manual-footer"><p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p><p>プラグイン: Kashiwazaki SEO Headline Generator v1.0.3</p></footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概要 - Kashiwazaki SEO Headline Generator マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+
+<button class="hamburger-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header"><h2 style="color:#fff;">Headline Generator</h2><span class="version">v1.0.3</span><img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;"></div>
+    <ul><li><a href="index.html">概要</a></li><li><a href="setup.html">インストール・初期設定</a></li><li><a href="headline-analysis.html">見出し分析の使い方</a></li><li><a href="troubleshooting.html">トラブルシューティング</a></li></ul>
+</nav>
+
+<main class="content">
+    <h1>Kashiwazaki SEO Headline Generator マニュアル</h1>
+
+    <img src="images/main-visual.png" alt="Kashiwazaki SEO Headline Generator メインビジュアル" style="width:100%;border-radius:6px;margin-bottom:24px;">
+
+    <p class="lead">Kashiwazaki SEO Headline Generator は、見出し（H1〜H6）の階層構造を検証し、コンテンツ分析・カニバリゼーション検出・目次の自動生成を行うWordPressプラグインです。見出しへの自動ID付与により、ページ内リンクの活用も支援します。</p>
+
+    <p>見出し構造の最適化は、SEOとユーザビリティの両面で重要です。本プラグインはH1〜H6の階層構造を分析し、ギャップや重複を検出するとともに、自動目次生成とサイト全体のカニバリゼーションチェック機能を提供します。</p>
+
+    <div class="feature-cards">
+        <div class="feature-card">
+            <span class="icon">&#128270;</span>
+            <h4>見出し分析</h4>
+            <p>H1〜H6の階層構造をチェックしギャップ・重複を自動検出</p>
+        </div>
+        <div class="feature-card">
+            <span class="icon">&#128220;</span>
+            <h4>目次自動生成</h4>
+            <p>記事の見出しから自動でTable of Contentsを生成・挿入</p>
+        </div>
+        <div class="feature-card">
+            <span class="icon">&#9888;</span>
+            <h4>カニバリチェック</h4>
+            <p>サイト全体で類似見出しを検出しコンテンツ重複リスクを可視化</p>
+        </div>
+    </div>
+
+    <h2>SEO・GEOへの効果</h2>
+
+    <p>本プラグインはJSON-LDやmeta要素の出力は行いませんが、見出し構造の最適化を通じてSEOとGEOに貢献します。</p>
+
+    <ul>
+        <li>適切な見出し階層（h1→h2→h3）はSEOの基本であり、検索エンジンのコンテンツ理解を支援します</li>
+        <li>自動生成されるTOCとアンカーIDにより、検索結果にページ内ジャンプリンクが表示される可能性があります</li>
+        <li>カニバリゼーション検出により、コンテンツの重複がランキングを希薄化するリスクを特定できます</li>
+        <li>GEO対応：構造化された見出しは、AIがコンテンツを解析・抽出する際の精度を向上させます</li>
+    </ul>
+
+    <h2>技術仕様</h2>
+
+    <ul>
+        <li><strong>データ保存:</strong> wp_options (kashiwazaki_seo_headline_options)</li>
+        <li><strong>カスタムテーブル:</strong> なし</li>
+        <li><strong>外部通信:</strong> なし</li>
+        <li><strong>Cron:</strong> なし</li>
+        <li><strong>メール:</strong> なし</li>
+        <li><strong>AJAXハンドラ:</strong> 2件</li>
+        <li><strong>管理画面CSS:</strong> 28KB</li>
+        <li><strong>管理画面JS:</strong> 32KB</li>
+        <li><strong>フロントエンド出力:</strong> 見出しID + オプションTOC</li>
+        <li><strong>要件:</strong> WordPress 5.0以上、PHP 7.4以上</li>
+    </ul>
+
+    <nav class="page-nav">
+        <span></span>
+        <a href="setup.html" class="next">インストール・初期設定 &raquo;</a>
+    </div>
+
+    <footer class="manual-footer"><p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p><p>プラグイン: Kashiwazaki SEO Headline Generator v1.0.3</p></footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>

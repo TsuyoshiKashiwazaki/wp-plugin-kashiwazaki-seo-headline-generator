@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>見出し分析の使い方 - Kashiwazaki SEO Headline Generator マニュアル</title>
+    <link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+
+<button class="hamburger-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+
+<nav class="sidebar">
+    <div class="sidebar-header"><h2 style="color:#fff;">Headline Generator</h2><span class="version">v1.0.3</span><img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;"></div>
+    <ul><li><a href="index.html">概要</a></li><li><a href="setup.html">インストール・初期設定</a></li><li><a href="headline-analysis.html">見出し分析の使い方</a></li><li><a href="troubleshooting.html">トラブルシューティング</a></li></ul>
+</nav>
+
+<main class="content">
+    <h1>見出し分析の使い方</h1>
+
+    <p class="lead">見出し階層の検証、コンテンツ分析（ギャップ・重複・文字数）、カニバリゼーション検出、目次（TOC）の自動生成について説明します。</p>
+
+    <h2>見出し階層の検証</h2>
+
+    <p>投稿の編集画面で、記事内の見出し（H1〜H6）の階層構造をリアルタイムにチェックします。階層ギャップ（例：H2の直後にH4）や重複する見出しを自動検出します。</p>
+
+    <figure class="screenshot">
+        <img src="images/screenshots/02-headline-detail.png" alt="見出し解析画面" class="lightbox-trigger">
+        <figcaption>見出し構造の解析結果</figcaption>
+    </figure>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>投稿の編集画面を開くと、エディタのサイドバーまたはメタボックスに見出し分析パネルが表示されます。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>記事内の見出しが階層構造として一覧表示されます。問題がある箇所にはアイコンやハイライトで警告が表示されます。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>警告内容を確認し、見出しの階層を修正します。修正後、分析結果はリアルタイムに更新されます。</p>
+        </div>
+    </div>
+
+    <div class="callout callout-tip">
+        <p class="callout-title">ヒント</p>
+        <p>SEOにおいて、見出しの階層構造は重要なシグナルです。H1→H2→H3の順序を保ち、階層をスキップしないようにしましょう。</p>
+    </div>
+
+    <h3>検出される問題</h3>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">問題の種類</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>階層ギャップ</td>
+                <td>見出しレベルがスキップされている場合（例：H2の直後にH4が来る場合）に警告します</td>
+            </tr>
+            <tr>
+                <td>重複見出し</td>
+                <td>同じテキストの見出しが複数存在する場合に警告します</td>
+            </tr>
+            <tr>
+                <td>文字数</td>
+                <td>見出しの文字数が極端に長い・短い場合に情報を表示します</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>自動ID付与</h2>
+
+    <p>プラグインはフロントエンドで見出しタグ（H1〜H6）にユニークなIDを自動付与します。これにより、ページ内リンク（アンカーリンク）が自動的に利用可能になります。</p>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ID生成方式</td>
+                <td>見出しテキストを元にスラッグ形式のIDを自動生成します</td>
+            </tr>
+            <tr>
+                <td>重複回避</td>
+                <td>同一テキストの見出しがある場合、連番サフィックスで一意性を確保します</td>
+            </tr>
+            <tr>
+                <td>既存ID</td>
+                <td>既にIDが付与されている見出しは上書きしません</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-note">
+        <p class="callout-title">補足</p>
+        <p>自動付与されたIDは、検索結果にページ内ジャンプリンク（サイトリンク）として表示される可能性があります。これはSEO効果の向上に寄与します。</p>
+    </div>
+
+    <h2>目次（TOC）の自動生成</h2>
+
+    <p>設定で目次の自動挿入を有効にすると、記事の見出しからTable of Contentsが自動生成され、指定した位置に挿入されます。</p>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>設定ページで「目次の自動挿入」を有効にします。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>対象となる見出しレベル（H2〜H6）と目次の挿入位置を設定します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>フロントエンドで記事を表示すると、設定に従って目次が自動挿入されます。各項目は見出しのIDへのアンカーリンクになっています。</p>
+        </div>
+    </div>
+
+    <div class="callout callout-tip">
+        <p class="callout-title">SEOへの効果</p>
+        <p>TOCのアンカーリンクは、検索結果のサイトリンクとして表示される可能性があります。ユーザーが検索結果から直接目的のセクションにジャンプできるため、CTRの向上が期待できます。</p>
+    </div>
+
+    <h2>カニバリゼーション検出</h2>
+
+    <p>サイト全体で類似する見出しを検出し、コンテンツの重複リスクを可視化します。同じテーマの記事が複数存在する場合、検索ランキングが分散するリスクを特定できます。</p>
+
+    <div class="step">
+        <span class="step-number">1</span>
+        <div class="step-body">
+            <p>設定ページでカニバリゼーション検出を有効にします。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">2</span>
+        <div class="step-body">
+            <p>管理画面のカニバリゼーション検出パネルで「スキャン」を実行します。サイト全体の見出しを比較分析します。</p>
+        </div>
+    </div>
+
+    <div class="step">
+        <span class="step-number">3</span>
+        <div class="step-body">
+            <p>類似度の高い見出しのペアが一覧表示されます。対象の投稿へのリンクも表示されるため、コンテンツの統合や差別化を検討できます。</p>
+        </div>
+    </div>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">表示項目</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>類似見出しペア</td>
+                <td>類似度の高い見出しの組み合わせを表示します</td>
+            </tr>
+            <tr>
+                <td>対象投稿</td>
+                <td>各見出しが含まれる投稿のタイトルとリンクを表示します</td>
+            </tr>
+            <tr>
+                <td>類似度</td>
+                <td>見出し間の類似度スコアを表示します</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout callout-warning">
+        <p class="callout-title">注意</p>
+        <p>カニバリゼーション検出のスキャンはAJAXで非同期に実行されます。投稿数が多いサイトではスキャンに時間がかかる場合があります。スキャン中はページを閉じないでください。</p>
+    </div>
+
+    <h2>管理画面のファイルサイズ</h2>
+
+    <table class="widefat">
+        <thead>
+            <tr>
+                <th style="width:35%;">ファイル</th>
+                <th>サイズ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>管理画面CSS</td>
+                <td>28KB</td>
+            </tr>
+            <tr>
+                <td>管理画面JS</td>
+                <td>32KB（見出し分析・カニバリ検出を含む）</td>
+            </tr>
+            <tr>
+                <td>フロントエンド出力</td>
+                <td>見出しID属性 + オプションTOC（HTMLのみ、外部ファイルなし）</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <nav class="page-nav">
+        <a href="setup.html" class="prev">&laquo; インストール・初期設定</a>
+        <a href="troubleshooting.html" class="next">トラブルシューティング &raquo;</a>
+    </div>
+
+    <footer class="manual-footer"><p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">柏崎剛（Tsuyoshi Kashiwazaki）</a></p><p>プラグイン: Kashiwazaki SEO Headline Generator v1.0.3</p></footer>
+</main>
+
+<div class="lightbox"></div>
+<script src="js/manual.js?v=1"></script>
+</body>
+</html>
